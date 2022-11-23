@@ -43,7 +43,7 @@ public class ClientesDAOImpl extends JdbcDaoSupport implements ClientesDAO{
     
     @Override
     public void insert(Cliente cliente){
-        String query = "insert int Clientes (nombre,apellidos,dni,direccion,telefono,email,vip) values (?,?,?,?,?,?,?)";
+        String query = "insert into Clientes (nombre,apellidos,dni,direccion,telefono,email,vip) values (?,?,?,?,?,?,?)";
 
         Object[] params = {
             cliente.getNombre(),
