@@ -3,6 +3,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,14 +53,30 @@ public class ProductoController {
         return modelAndView;
     }
 
-    @RequestMapping(path="/edit")
-    public ModelAndView edit(@RequestParam(name="codigo", required=true) int codigo){
+    @GetMapping(path = {"/edit/{codigo}"})
+    public ModelAndView editar(@PathVariable(name="codigo", required=true) int codigo){
         ModelAndView modelAndView = new ModelAndView();
-        //modelAndView.addObject("producto", getProducto(codigo));
+        Producto producto = productosService.findById(codigo);
+        modelAndView.addObject("producto", producto);
         modelAndView.setViewName("productos/edit");
 
         return modelAndView;
 
+    }
+
+    @PostMapping(path = {"/modificar"})
+    public ModelAndView modificar(Producto producto){
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        productosService.update(producto);
+        
+        List<Producto> productos = productosService.findAll();
+        modelAndView.addObject("productos", productos);
+
+        modelAndView.setViewName("productos/list");
+
+        return modelAndView;
     }
 
     // private Producto getProducto(int codigo){
