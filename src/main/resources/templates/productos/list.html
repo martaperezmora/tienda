@@ -6,17 +6,19 @@
 <body>
   <div th:replace="commons/menu :: menu"/>
 
+  <a th:href="@{/producto/nuevo}" class="btn btn-primary" th:text="#{producto.nuevo}">nuevo producto</a>
+
   <!-- cards -->
   <div class="container">
     <div class="row">
       <div th:each="producto : ${productos}" class="col-3">
         <div class="card" style="width: 18rem;">
-          <img th:src="${producto.urlImg}" src="../static/img/" class="card-img-top" alt="...">
+          <!--<img th:src="${producto.urlImg}" src="../static/img/" class="card-img-top" alt="...">-->
           <div class="card-body">
-            <h5 th:text="${producto.nombre}" class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-              content.</p>
-            <a href="producto.html" th:href="@{/productos/edit?codigo=}+${producto.codigo}" class="btn btn-primary">Go somewhere</a>
+            <h5 th:text="${producto.nombre}" class="card-title"></h5>
+            <p class="card-text"></p>
+            <a href="producto.html" th:href="@{/productos/edit?codigo=}+${producto.codigo}" class="btn btn-primary">editar</a>
+            <a href="producto.html" th:href="@{/productos/edit?codigo=}+${producto.codigo}" class="btn btn-danger">borrar</a>
           </div>
         </div>
       </div>
