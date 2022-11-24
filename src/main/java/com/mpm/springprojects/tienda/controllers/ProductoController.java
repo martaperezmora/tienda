@@ -1,22 +1,28 @@
 package com.mpm.springprojects.tienda.controllers;
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mpm.springprojects.tienda.model.Producto;
+import com.mpm.springprojects.tienda.services.ProductosService;
 
 @Controller
 @RequestMapping("/productos")
 public class ProductoController {
     
+    @Autowired
+    ProductosService productosService;
+
     @RequestMapping(value="/list")
     public ModelAndView list(){
+        List<Producto> productos = productosService.findAll();
         ModelAndView modelAndView = new ModelAndView();
-        //modelAndView.addObject("productos", getProductos());
+        
+        modelAndView.addObject("productos", productos);
         modelAndView.setViewName("productos/list");
 
         return modelAndView;

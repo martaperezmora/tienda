@@ -16,7 +16,7 @@
           <!--<img th:src="${producto.urlImg}" src="../static/img/" class="card-img-top" alt="...">-->
           <div class="card-body">
             <h5 th:text="${producto.nombre}" class="card-title"></h5>
-            <p class="card-text"></p>
+            <p th:text="${producto.descripcion}" class="card-text"></p>
             <a href="producto.html" th:href="@{/productos/edit?codigo=}+${producto.codigo}" class="btn btn-primary">editar</a>
             <a href="producto.html" th:href="@{/productos/edit?codigo=}+${producto.codigo}" class="btn btn-danger">borrar</a>
           </div>
