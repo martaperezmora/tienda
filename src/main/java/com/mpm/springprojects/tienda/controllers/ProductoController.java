@@ -3,6 +3,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,6 +24,28 @@ public class ProductoController {
         ModelAndView modelAndView = new ModelAndView();
         
         modelAndView.addObject("productos", productos);
+        modelAndView.setViewName("productos/list");
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value= {"/nuevo"})
+    public ModelAndView nuevo(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("productos/nuevo");
+
+        return modelAndView;
+    }
+
+    @PostMapping(path = {"/guardar"})
+    public ModelAndView guardar(Producto producto){
+        ModelAndView modelAndView = new ModelAndView();
+        
+        productosService.insert(producto);
+
+        List<Producto> productos = productosService.findAll();
+        modelAndView.addObject("productos", productos);
+
         modelAndView.setViewName("productos/list");
 
         return modelAndView;

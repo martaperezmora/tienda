@@ -3,7 +3,7 @@
   <head th:replace="commons/header :: header"/>
 <body>
     <div th:replace="commons/menu :: menu"/>
-    <form class="row g-3" th:action="@{/productos/modificar}" method="post">
+    <form class="row g-3" th:action="@{/productos/guardar}" method="post">
       <div class="col-md-3">
         <label for="nombre" class="form-label" th:text="#{producto.nombre}">Nombre</label>
         <input type="text" class="form-control" id="nombre" name="nombre" autofocus>
@@ -20,7 +20,7 @@
       </div>
 
       <div class="col-12">
-        <button type="submit" class="btn btn-primary" th:text="#{producto.editar}">editar</button>
+        <button type="submit" class="btn btn-primary" th:text="#{producto.nuevo}">nuevo</button>
       </div>
 
     </form>
