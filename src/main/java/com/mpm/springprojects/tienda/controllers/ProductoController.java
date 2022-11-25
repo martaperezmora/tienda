@@ -79,6 +79,18 @@ public class ProductoController {
         return modelAndView;
     }
 
+    @GetMapping(path = {"/borrar/{codigo}"})
+    public ModelAndView borrar(@PathVariable(name="codigo", required=true) int codigo){
+        ModelAndView modelAndView = new ModelAndView();
+
+        productosService.delete(codigo);
+        List<Producto> productos = productosService.findAll();
+        modelAndView.addObject("productos", productos);
+        modelAndView.setViewName("productos/list");
+        
+        return modelAndView;
+    }
+
     // private Producto getProducto(int codigo){
     //     List<Producto> productos = getProductos();
     //     int indexOf = productos.indexOf(new Producto(codigo));
