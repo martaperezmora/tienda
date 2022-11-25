@@ -43,20 +43,18 @@ public class ProductosDAOImpl extends JdbcDaoSupport implements ProductosDAO{
     
     @Override
     public void insert(Producto producto){
-        String query = "insert into Productos (nombre,descripcion,precio,imagen) values (?,?,?,?)";
+        String query = "insert into Productos (nombre,descripcion,precio) values (?,?,?)";
 
         Object[] params = {
             producto.getNombre(),
             producto.getDescripcion(),
             producto.getPrecio(),
-            producto.getImagen()
         };
 
         int[] types = {
             Types.VARCHAR,
             Types.VARCHAR,
             Types.FLOAT,
-            Types.BINARY
         };
 
         int update = getJdbcTemplate().update(query, params, types);

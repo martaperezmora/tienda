@@ -34,6 +34,25 @@ public class LoginController {
         return "bienvenido";
     }
 
+    @RequestMapping(path = {"/login"})
+    public ModelAndView login(Usuario usuario, HttpSession session){
+        ModelAndView modelAndView = new ModelAndView();
+
+        usuario = new Usuario();
+        usuario.setNombre("a");
+
+        String mensaje = messageSource.getMessage("saludar.usuario", new String[]{usuario.getNombre()}, LocaleContextHolder.getLocale());
+
+        session.setAttribute("usuario", usuario);
+        
+        modelAndView.addObject("bienvenido", mensaje);
+        modelAndView.addObject("usuario", usuario);
+        modelAndView.setViewName("bienvenido");
+
+        return modelAndView;
+    }
+
+    /* 
     @PostMapping(path = {"/login"})
     public ModelAndView login(Usuario usuario, HttpSession session){
         ModelAndView modelAndView = new ModelAndView();
@@ -47,6 +66,6 @@ public class LoginController {
         modelAndView.setViewName("bienvenido");
 
         return modelAndView;
-    }
+    }*/
 
 }
