@@ -71,10 +71,11 @@ public class ProductoController {
     }
 
     @PostMapping(path = {"/modificar"})
-    public ModelAndView modificar(Producto producto){
+    public ModelAndView modificar(Producto producto, @RequestParam("imagenForm") MultipartFile multipartFile) throws IOException{
 
         ModelAndView modelAndView = new ModelAndView();
-
+        byte[] imagen = multipartFile.getBytes();
+        producto.setImagen(imagen);
         productosService.update(producto);
         
         List<Producto> productos = productosService.findAll();
