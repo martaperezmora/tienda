@@ -1,10 +1,13 @@
 package com.mpm.springprojects.tienda.model;
 
+import com.mpm.springprojects.tienda.Utils.ImageUtil;
+
 public class Producto {
     private int codigo;
     private String nombre;
     private String descripcion;
     private float precio;
+    private byte[] imagen;
     
 
     public Producto() {
@@ -19,11 +22,12 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public Producto(int codigo, String nombre, String descripcion, float precio) {
+    public Producto(int codigo, String nombre, String descripcion, float precio, byte[] imagen) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
+        this.imagen = imagen;
     }
 
     public int getCodigo() {
@@ -58,6 +62,14 @@ public class Producto {
         this.precio = precio;
     }
 
+    public byte[] getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -78,6 +90,10 @@ public class Producto {
         if (codigo != other.codigo)
             return false;
         return true;
+    }
+
+    public String getImageView(){
+        return ImageUtil.getImgData(this.imagen);
     }
 
 

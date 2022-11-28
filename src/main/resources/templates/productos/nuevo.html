@@ -3,7 +3,7 @@
   <head th:replace="commons/header :: header"/>
 <body>
     <div th:replace="commons/menu :: menu"/>
-    <form class="row g-3" th:action="@{/productos/guardar}" method="post">
+    <form class="row g-3" th:action="@{/productos/guardar}" method="post" enctype="multipart/form-data">
       <div class="col-md-3">
         <label for="nombre" class="form-label" th:text="#{producto.nombre}">Nombre</label>
         <input type="text" class="form-control" id="nombre" name="nombre" autofocus>
@@ -19,7 +19,10 @@
         <input type="text" class="form-control" id="precio" name="precio">
       </div>
 
-      <input type="file" name="imagen" id="imagen">
+      <div class="mb-3">
+        <label for="imagenForm" class="form-label">Imagen</label>
+        <input class="form-control" type="file" name="imagenForm" id="imagenForm">
+      </div>
 
       <div class="col-12">
         <button type="submit" class="btn btn-primary" th:text="#{producto.nuevo}">nuevo</button>

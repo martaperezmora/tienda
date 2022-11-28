@@ -3,7 +3,7 @@
   <head th:replace="commons/header :: header"/>
 <body>
     <div th:replace="commons/menu :: menu"/>
-    <form class="row g-3" th:action="@{/productos/modificar}" method="post">
+    <form class="row g-3" th:action="@{/productos/modificar}" method="post" enctype="multipart/form-data">
       <input type="hidden" id="codigo" name="codigo" min="0" th:value="${producto.codigo}">
       <div class="col-md-3">
         <label for="nombre" class="form-label" th:text="#{producto.nombre}">Nombre</label>
@@ -18,6 +18,11 @@
       <div class="col-md-3">
         <label for="precio" class="form-label" th:text="#{producto.precio}">Precio</label>
         <input type="text" class="form-control" id="precio" name="precio" th:value="${producto.precio}">
+      </div>
+
+      <div class="mb-3">
+        <label for="imagenForm" class="form-label">Imagen</label>
+        <input class="form-control" type="file" name="imagenForm" id="imagenForm" th:value="${producto.imagen}">
       </div>
 
       <div class="col-12">
