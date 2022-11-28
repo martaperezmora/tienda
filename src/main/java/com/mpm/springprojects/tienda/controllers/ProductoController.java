@@ -77,11 +77,8 @@ public class ProductoController {
         byte[] imagen = multipartFile.getBytes();
         producto.setImagen(imagen);
         productosService.update(producto);
-        
-        List<Producto> productos = productosService.findAll();
-        modelAndView.addObject("productos", productos);
 
-        modelAndView.setViewName("productos/list");
+        modelAndView.setViewName("redirect:edit/" + producto.getCodigo());
 
         return modelAndView;
     }
