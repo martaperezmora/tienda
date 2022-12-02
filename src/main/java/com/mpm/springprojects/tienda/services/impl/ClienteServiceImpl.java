@@ -3,6 +3,7 @@ package com.mpm.springprojects.tienda.services.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.mpm.springprojects.tienda.dao.ClientesDAO;
@@ -16,8 +17,8 @@ public class ClienteServiceImpl implements ClientesService{
     ClientesDAO clientesDAO;
 
     @Override
-    public List<Cliente> findAll() {
-        return clientesDAO.findAll();
+    public Page<Cliente> findAll(Pageable page) {
+        return clientesDAO.findAll(page);
     }
 
     @Override
@@ -39,6 +40,5 @@ public class ClienteServiceImpl implements ClientesService{
     public void delete(int codigo) {
         clientesDAO.delete(codigo);
     }
-    
     
 }
