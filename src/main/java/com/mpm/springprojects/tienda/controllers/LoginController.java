@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,32 +18,33 @@ public class LoginController {
     @Autowired
     private MessageSource messageSource;
 
-    @RequestMapping(value= {"/signin"})
-    public String signin(){
+    @RequestMapping(value = { "/signin" })
+    public String signin() {
         return "signin";
     }
 
-    @RequestMapping(value= {"/logout"})
-    public String logout(){
+    @RequestMapping(value = { "/logout" })
+    public String logout() {
         return "signin";
     }
 
-    @RequestMapping(value= {"/bienvenido"})
-    public String bienvenido(){
+    @RequestMapping(value = { "/bienvenido" })
+    public String bienvenido() {
         return "bienvenido";
     }
 
-    @RequestMapping(path = {"/login"})
-    public ModelAndView login(Usuario usuario, HttpSession session){
+    @RequestMapping(path = { "/login" })
+    public ModelAndView login(Usuario usuario, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
 
         usuario = new Usuario();
         usuario.setNombre("a");
 
-        String mensaje = messageSource.getMessage("saludar.usuario", new String[]{usuario.getNombre()}, LocaleContextHolder.getLocale());
+        String mensaje = messageSource.getMessage("saludar.usuario", new String[] { usuario.getNombre() },
+                LocaleContextHolder.getLocale());
 
         session.setAttribute("usuario", usuario);
-        
+
         modelAndView.addObject("bienvenido", mensaje);
         modelAndView.addObject("usuario", usuario);
         modelAndView.setViewName("bienvenido");
@@ -52,20 +52,22 @@ public class LoginController {
         return modelAndView;
     }
 
-    /* 
-    @PostMapping(path = {"/login"})
-    public ModelAndView login(Usuario usuario, HttpSession session){
-        ModelAndView modelAndView = new ModelAndView();
-
-        String mensaje = messageSource.getMessage("saludar.usuario", new String[]{usuario.getNombre()}, LocaleContextHolder.getLocale());
-
-        session.setAttribute("usuario", usuario);
-        
-        modelAndView.addObject("bienvenido", mensaje);
-        //modelAndView.addObject("usuario", usuario);
-        modelAndView.setViewName("bienvenido");
-
-        return modelAndView;
-    }*/
+    /*
+     * @PostMapping(path = {"/login"})
+     * public ModelAndView login(Usuario usuario, HttpSession session){
+     * ModelAndView modelAndView = new ModelAndView();
+     * 
+     * String mensaje = messageSource.getMessage("saludar.usuario", new
+     * String[]{usuario.getNombre()}, LocaleContextHolder.getLocale());
+     * 
+     * session.setAttribute("usuario", usuario);
+     * 
+     * modelAndView.addObject("bienvenido", mensaje);
+     * //modelAndView.addObject("usuario", usuario);
+     * modelAndView.setViewName("bienvenido");
+     * 
+     * return modelAndView;
+     * }
+     */
 
 }

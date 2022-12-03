@@ -29,34 +29,36 @@ import com.mpm.springprojects.tienda.model.Cliente;
 import com.mpm.springprojects.tienda.dao.ClientesDAO;
 
 @Repository
-public class ClientesDAOImpl extends JdbcDaoSupport implements ClientesDAO{
+public class ClientesDAOImpl extends JdbcDaoSupport implements ClientesDAO {
 
     @Autowired
     DataSource dataSource;
 
     @PostConstruct
-    private void  initialize(){
+    private void initialize() {
         setDataSource(dataSource);
     }
 
     /*
-    @Override
-    public List<Cliente> findAll() {
-        String query = "select * from Clientes";
-        List<Cliente> clientes = getJdbcTemplate().query(query, new BeanPropertyRowMapper(Cliente.class));
-        return clientes;
-    }*/
+     * @Override
+     * public List<Cliente> findAll() {
+     * String query = "select * from Clientes";
+     * List<Cliente> clientes = getJdbcTemplate().query(query, new
+     * BeanPropertyRowMapper(Cliente.class));
+     * return clientes;
+     * }
+     */
 
     @Override
     public Page<Cliente> findAll(Pageable page) {
 
         String queryCount = "select count(1) from Clientes";
-        Integer total = getJdbcTemplate().queryForObject(queryCount,Integer.class);
+        Integer total = getJdbcTemplate().queryForObject(queryCount, Integer.class);
 
         Order order = !page.getSort().isEmpty() ? page.getSort().toList().get(0) : Order.by("codigo");
 
         String query = "SELECT * FROM Clientes ORDER BY " + order.getProperty() + " "
-        + order.getDirection().name() + " LIMIT " + page.getPageSize() + " OFFSET " + page.getOffset();
+                + order.getDirection().name() + " LIMIT " + page.getPageSize() + " OFFSET " + page.getOffset();
 
         final List<Cliente> clientes = getJdbcTemplate().query(query, new RowMapper<Cliente>() {
 
@@ -72,10 +74,10 @@ public class ClientesDAOImpl extends JdbcDaoSupport implements ClientesDAO{
                 cliente.setTelefono(rs.getString("telefono"));
                 cliente.setDireccion(rs.getString("direccion"));
                 cliente.setVip(rs.getBoolean("vip"));
-        
+
                 return cliente;
             }
-            
+
         });
 
         return new PageImpl<Cliente>(clientes, page, total);
@@ -84,39 +86,43 @@ public class ClientesDAOImpl extends JdbcDaoSupport implements ClientesDAO{
     @Override
     public Cliente findById(int codigo) {
         String query = "select * from Clientes where codigo = ?";
-        Object params [] = {codigo};
-        int types [] = {Types.INTEGER}; 
-        Cliente cliente = (Cliente) getJdbcTemplate().queryForObject(query, params, types, new BeanPropertyRowMapper(Cliente.class));
+        Object params[] = { codigo };
+        int types[] = { Types.INTEGER };
+        Cliente cliente = (Cliente) getJdbcTemplate().queryForObject(query, params, types,
+                new BeanPropertyRowMapper(Cliente.class));
         return cliente;
     }
-    
+
     /*
-    @Override
-    public void insert(Cliente cliente){
-        String query = "insert into Clientes (nombre,apellidos,dni,direccion,telefono,email,vip) values (?,?,?,?,?,?,?)";
-
-        Object[] params = {
-            cliente.getNombre(),
-            cliente.getApellidos(),
-            cliente.getDni(),
-            cliente.getDireccion(),
-            cliente.getTelefono(),
-            cliente.getEmail(),
-            cliente.getVip()
-        };
-
-        int[] types = {
-            Types.VARCHAR,
-            Types.VARCHAR,
-            Types.VARCHAR,
-            Types.VARCHAR,
-            Types.VARCHAR,
-            Types.VARCHAR,
-            Types.BOOLEAN,
-        };
-
-        int update = getJdbcTemplate().update(query, params, types);
-    }*/
+     * @Override
+     * public void insert(Cliente cliente){
+     * String query =
+     * "insert into Clientes (nombre,apellidos,dni,direccion,telefono,email,vip) values (?,?,?,?,?,?,?)"
+     * ;
+     * 
+     * Object[] params = {
+     * cliente.getNombre(),
+     * cliente.getApellidos(),
+     * cliente.getDni(),
+     * cliente.getDireccion(),
+     * cliente.getTelefono(),
+     * cliente.getEmail(),
+     * cliente.getVip()
+     * };
+     * 
+     * int[] types = {
+     * Types.VARCHAR,
+     * Types.VARCHAR,
+     * Types.VARCHAR,
+     * Types.VARCHAR,
+     * Types.VARCHAR,
+     * Types.VARCHAR,
+     * Types.BOOLEAN,
+     * };
+     * 
+     * int update = getJdbcTemplate().update(query, params, types);
+     * }
+     */
 
     @Override
     public void insert(Cliente cliente) {
@@ -138,10 +144,10 @@ public class ClientesDAOImpl extends JdbcDaoSupport implements ClientesDAO{
                 ps.setString(5, cliente.getDni());
                 ps.setBoolean(6, cliente.getVip());
                 ps.setString(7, cliente.getTelefono());
-                
-                //InputStream is = new ByteArrayInputStream(cliente.getImagen());
-                
-                //ps.setBlob(4, is);
+
+                // InputStream is = new ByteArrayInputStream(cliente.getImagen());
+
+                // ps.setBlob(4, is);
 
                 return ps;
             }
@@ -155,39 +161,39 @@ public class ClientesDAOImpl extends JdbcDaoSupport implements ClientesDAO{
         String query = "update Clientes set nombre = ?, apellidos = ?, dni = ?, direccion = ?, telefono = ?, email = ?, vip = ? where codigo = ?";
 
         Object[] params = {
-            cliente.getNombre(),
-            cliente.getApellidos(),
-            cliente.getDni(),
-            cliente.getDireccion(),
-            cliente.getTelefono(),
-            cliente.getEmail(),
-            cliente.getVip(),
-            cliente.getCodigo()
+                cliente.getNombre(),
+                cliente.getApellidos(),
+                cliente.getDni(),
+                cliente.getDireccion(),
+                cliente.getTelefono(),
+                cliente.getEmail(),
+                cliente.getVip(),
+                cliente.getCodigo()
         };
 
         int[] types = {
-            Types.VARCHAR,
-            Types.VARCHAR,
-            Types.VARCHAR,
-            Types.VARCHAR,
-            Types.VARCHAR,
-            Types.VARCHAR,
-            Types.BOOLEAN,
-            Types.INTEGER
+                Types.VARCHAR,
+                Types.VARCHAR,
+                Types.VARCHAR,
+                Types.VARCHAR,
+                Types.VARCHAR,
+                Types.VARCHAR,
+                Types.BOOLEAN,
+                Types.INTEGER
         };
 
         int update = getJdbcTemplate().update(query, params, types);
-        
+
     }
 
     @Override
     public void delete(int codigo) {
         String query = "delete from Clientes where codigo = ?";
 
-        Object params [] = {codigo};
-        int types [] = {Types.INTEGER}; 
+        Object params[] = { codigo };
+        int types[] = { Types.INTEGER };
 
         int update = getJdbcTemplate().update(query, params, types);
     }
-    
+
 }

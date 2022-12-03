@@ -1,7 +1,5 @@
 package com.mpm.springprojects.tienda.services.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +10,7 @@ import com.mpm.springprojects.tienda.model.Producto;
 import com.mpm.springprojects.tienda.services.ProductosService;
 
 @Service
-public class ProductoServiceImpl implements ProductosService{
+public class ProductoServiceImpl implements ProductosService {
 
     @Autowired
     ProductosDAO productosDAO;
@@ -36,7 +34,7 @@ public class ProductoServiceImpl implements ProductosService{
     public void update(Producto producto) {
         productosDAO.update(producto);
 
-        if(producto.getImagen() != null && producto.getImagen().length > 0){
+        if (producto.getImagen() != null && producto.getImagen().length > 0) {
             productosDAO.updateImage(producto);
         }
     }
@@ -45,6 +43,5 @@ public class ProductoServiceImpl implements ProductosService{
     public void delete(int codigo) {
         productosDAO.delete(codigo);
     }
-    
-    
+
 }

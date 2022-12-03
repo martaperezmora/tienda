@@ -31,34 +31,36 @@ import com.mpm.springprojects.tienda.dao.ProductosDAO;
 import com.mpm.springprojects.tienda.model.Producto;
 
 @Repository
-public class ProductosDAOImpl extends JdbcDaoSupport implements ProductosDAO{
+public class ProductosDAOImpl extends JdbcDaoSupport implements ProductosDAO {
 
     @Autowired
     DataSource dataSource;
 
     @PostConstruct
-    private void  initialize(){
+    private void initialize() {
         setDataSource(dataSource);
     }
 
     /*
-    @Override
-    public List<Producto> findAll() {
-        String query = "select * from Productos";
-        List<Producto> productos = getJdbcTemplate().query(query, new BeanPropertyRowMapper(Producto.class));
-        return productos;
-    }*/
+     * @Override
+     * public List<Producto> findAll() {
+     * String query = "select * from Productos";
+     * List<Producto> productos = getJdbcTemplate().query(query, new
+     * BeanPropertyRowMapper(Producto.class));
+     * return productos;
+     * }
+     */
 
     @Override
     public Page<Producto> findAll(Pageable page) {
 
         String queryCount = "select count(1) from Productos";
-        Integer total = getJdbcTemplate().queryForObject(queryCount,Integer.class);
+        Integer total = getJdbcTemplate().queryForObject(queryCount, Integer.class);
 
         Order order = !page.getSort().isEmpty() ? page.getSort().toList().get(0) : Order.by("codigo");
 
         String query = "SELECT * FROM Productos ORDER BY " + order.getProperty() + " "
-        + order.getDirection().name() + " LIMIT " + page.getPageSize() + " OFFSET " + page.getOffset();
+                + order.getDirection().name() + " LIMIT " + page.getPageSize() + " OFFSET " + page.getOffset();
 
         final List<Producto> productos = getJdbcTemplate().query(query, new RowMapper<Producto>() {
 
@@ -71,70 +73,72 @@ public class ProductosDAOImpl extends JdbcDaoSupport implements ProductosDAO{
                 producto.setDescripcion(rs.getString("descripcion"));
                 producto.setPrecio(rs.getFloat("precio"));
                 producto.setImagen(rs.getBytes("imagen"));
-        
+
                 return producto;
             }
-            
+
         });
 
         return new PageImpl<Producto>(productos, page, total);
     }
 
-
     @Override
     public Producto findById(int codigo) {
         String query = "select * from Productos where codigo = ?";
-        Object params [] = {codigo};
-        int types [] = {Types.INTEGER}; 
-        Producto producto = (Producto) getJdbcTemplate().queryForObject(query, params, types, new BeanPropertyRowMapper(Producto.class));
+        Object params[] = { codigo };
+        int types[] = { Types.INTEGER };
+        Producto producto = (Producto) getJdbcTemplate().queryForObject(query, params, types,
+                new BeanPropertyRowMapper(Producto.class));
         return producto;
     }
     /*
-    @Override
-    public void insert(Producto producto){
-        String query = "insert into Productos (nombre,descripcion,precio,imagen) values (?,?,?,?)";
-
-        Object[] params = {
-            producto.getNombre(),
-            producto.getDescripcion(),
-            producto.getPrecio(),
-            producto.getImagen()
-        };
-
-        int[] types = {
-            Types.VARCHAR,
-            Types.VARCHAR,
-            Types.FLOAT,
-            Types.BLOB
-        };
-
-        int update = getJdbcTemplate().update(query, params, types);
-    }*/
+     * @Override
+     * public void insert(Producto producto){
+     * String query =
+     * "insert into Productos (nombre,descripcion,precio,imagen) values (?,?,?,?)";
+     * 
+     * Object[] params = {
+     * producto.getNombre(),
+     * producto.getDescripcion(),
+     * producto.getPrecio(),
+     * producto.getImagen()
+     * };
+     * 
+     * int[] types = {
+     * Types.VARCHAR,
+     * Types.VARCHAR,
+     * Types.FLOAT,
+     * Types.BLOB
+     * };
+     * 
+     * int update = getJdbcTemplate().update(query, params, types);
+     * }
+     */
 
     @Override
     public void insert(Producto producto) {
 
-        String query = "insert into Productos (nombre," + 
-                                            " descripcion," + 
-                                            " precio," + 
-                                            " imagen)" + 
-                                            " values (?, ?, ?, ?)";
+        String query = "insert into Productos (nombre," +
+                " descripcion," +
+                " precio," +
+                " imagen)" +
+                " values (?, ?, ?, ?)";
         // Object[] params = {
-        //     producto.getNombre(),
-        //     producto.getDescripcion(),
-        //     producto.getPrecio(),
-        //     producto.getImage()
+        // producto.getNombre(),
+        // producto.getDescripcion(),
+        // producto.getPrecio(),
+        // producto.getImage()
         // };
 
         // final int[] types = {
-        //     Types.VARCHAR,
-        //     Types.VARCHAR,
-        //     Types.FLOAT,
-        //     Types.BLOB
+        // Types.VARCHAR,
+        // Types.VARCHAR,
+        // Types.FLOAT,
+        // Types.BLOB
         // };
-        
+
         // int update = getJdbcTemplate().update(query, params, types);
-        
+
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         getJdbcTemplate().update(new PreparedStatementCreator() {
@@ -147,7 +151,7 @@ public class ProductosDAOImpl extends JdbcDaoSupport implements ProductosDAO{
                 ps.setString(2, producto.getDescripcion());
                 ps.setFloat(3, producto.getPrecio());
                 InputStream is = new ByteArrayInputStream(producto.getImagen());
-                
+
                 ps.setBlob(4, is);
                 return ps;
             }
@@ -161,29 +165,29 @@ public class ProductosDAOImpl extends JdbcDaoSupport implements ProductosDAO{
         String query = "update Productos set nombre = ?, descripcion = ?, precio = ? where codigo = ?";
 
         Object[] params = {
-            producto.getNombre(),
-            producto.getDescripcion(),
-            producto.getPrecio(),
-            producto.getCodigo()
+                producto.getNombre(),
+                producto.getDescripcion(),
+                producto.getPrecio(),
+                producto.getCodigo()
         };
 
         int[] types = {
-            Types.VARCHAR,
-            Types.VARCHAR,
-            Types.FLOAT,
-            Types.INTEGER
+                Types.VARCHAR,
+                Types.VARCHAR,
+                Types.FLOAT,
+                Types.INTEGER
         };
 
         int update = getJdbcTemplate().update(query, params, types);
-        
+
     }
 
     @Override
     public void delete(int codigo) {
         String query = "delete from Productos where codigo = ?";
 
-        Object params [] = {codigo};
-        int types [] = {Types.INTEGER}; 
+        Object params[] = { codigo };
+        int types[] = { Types.INTEGER };
 
         int update = getJdbcTemplate().update(query, params, types);
     }
@@ -193,17 +197,17 @@ public class ProductosDAOImpl extends JdbcDaoSupport implements ProductosDAO{
         String query = "update Productos set imagen = ? where codigo = ?";
 
         Object[] params = {
-            producto.getImagen(),
-            producto.getCodigo()
+                producto.getImagen(),
+                producto.getCodigo()
         };
 
         int[] types = {
-            Types.BLOB,
-            Types.INTEGER
+                Types.BLOB,
+                Types.INTEGER
         };
 
         int update = getJdbcTemplate().update(query, params, types);
-        
+
     }
-    
+
 }
