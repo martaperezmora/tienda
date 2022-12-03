@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mpm.springprojects.tienda.model.Cliente;
@@ -34,7 +33,7 @@ public class ClienteController {
     @GetMapping(value = "/lista")
     public ModelAndView list(Model model) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:list/1/codigo/asc");
+        modelAndView.setViewName("redirect:lista/1/codigo/asc");
         return modelAndView;
     }
 
@@ -51,7 +50,7 @@ public class ClienteController {
 
         List<Cliente> clientes = page.getContent();
 
-        ModelAndView modelAndView = new ModelAndView("clientes/list");
+        ModelAndView modelAndView = new ModelAndView("clientes/lista");
         modelAndView.addObject("clientes", clientes);
 
         modelAndView.addObject("numPage", numPage);
