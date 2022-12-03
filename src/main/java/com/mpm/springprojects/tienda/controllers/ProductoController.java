@@ -120,8 +120,10 @@ public class ProductoController {
             throws IOException {
 
         ModelAndView modelAndView = new ModelAndView();
+
         byte[] imagen = multipartFile.getBytes();
         producto.setImagen(imagen);
+        
         productosService.update(producto);
 
         modelAndView.setViewName("redirect:edit/" + producto.getCodigo());
