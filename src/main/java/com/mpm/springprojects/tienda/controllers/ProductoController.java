@@ -137,10 +137,11 @@ public class ProductoController {
         productosService.delete(codigo);
         // List<Producto> productos = productosService.findAll();
         // modelAndView.addObject("productos", productos);
-        modelAndView.setViewName("productos/list");
+        modelAndView.setViewName("redirect:/productos/list");
 
         return modelAndView;
     }
+
 
     // private Producto getProducto(int codigo){
     // List<Producto> productos = getProductos();

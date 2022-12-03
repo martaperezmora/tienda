@@ -142,7 +142,7 @@ public class ClienteController {
         clientesService.delete(codigo);
         //List<Cliente> clientes = clientesService.findAll();
         //modelAndView.addObject("clientes", clientes);
-        modelAndView.setViewName("clientes/list");
+        modelAndView.setViewName("redirect:/clientes/list");
         
         return modelAndView;
     }
