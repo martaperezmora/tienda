@@ -30,14 +30,14 @@ public class ClienteController {
     @Value("${pagination.size}")
     int sizePage;
 
-    @GetMapping(value = "/lista")
+    @GetMapping(value = "/list")
     public ModelAndView list(Model model) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:lista/1/codigo/asc");
+        modelAndView.setViewName("redirect:list/1/codigo/asc");
         return modelAndView;
     }
 
-    @GetMapping(value = "/lista/{numPage}/{fieldSort}/{directionSort}")
+    @GetMapping(value = "/list/{numPage}/{fieldSort}/{directionSort}")
     public ModelAndView listPage(Model model,
             @PathVariable("numPage") Integer numPage,
             @PathVariable("fieldSort") String fieldSort,
@@ -50,7 +50,7 @@ public class ClienteController {
 
         List<Cliente> clientes = page.getContent();
 
-        ModelAndView modelAndView = new ModelAndView("clientes/lista");
+        ModelAndView modelAndView = new ModelAndView("clientes/list");
         modelAndView.addObject("clientes", clientes);
 
         modelAndView.addObject("numPage", numPage);
@@ -64,13 +64,13 @@ public class ClienteController {
     }
 
     /*
-    @RequestMapping(value= {"/lista"})
+    @RequestMapping(value= {"/list"})
     public ModelAndView lista(){
         List<Cliente> clientes = clientesService.findAll();
         ModelAndView modelAndView = new ModelAndView();
         
         modelAndView.addObject("clientes", clientes);
-        modelAndView.setViewName("clientes/lista");
+        modelAndView.setViewName("clientes/list");
 
         return modelAndView;
     }*/
@@ -142,7 +142,7 @@ public class ClienteController {
         clientesService.delete(codigo);
         //List<Cliente> clientes = clientesService.findAll();
         //modelAndView.addObject("clientes", clientes);
-        modelAndView.setViewName("clientes/lista");
+        modelAndView.setViewName("clientes/list");
         
         return modelAndView;
     }

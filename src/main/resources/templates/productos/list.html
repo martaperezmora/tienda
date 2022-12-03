@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es" xmlsn:th="http://www.thymeleaf.org">
 
-<head th:replace="commons/header :: header"/>
+<head th:replace="commons/header :: header" />
 
 <body>
-  <div th:replace="commons/menu :: menu"/>
+  <div th:replace="commons/menu :: menu" />
 
   <a th:href="@{/productos/nuevo}" class="btn btn-primary" th:text="#{producto.nuevo}">nuevo producto</a>
 
@@ -28,11 +28,9 @@
     <!-- nav -->
     <div class="row">
       <div th:replace="commons/pagination :: pagination">
-        
-      </div>
     </div>
-  </div>
-  <div th:replace="commons/footer :: footer" class="container"/>
+
+    <div th:replace="commons/footer :: footer" class="container" />
 
 </body>
 
