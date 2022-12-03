@@ -127,7 +127,7 @@ public class ClientesDAOImpl extends JdbcDaoSupport implements ClientesDAO {
     @Override
     public void insert(Cliente cliente) {
 
-        String query = "insert into Clientes (nombre,apellidos,dni,direccion,telefono,email,vip) values (?,?,?,?,?,?,?)";
+        String query = "insert into Clientes (nombre,apellidos,direccion,email,dni,vip,telefono) values (?,?,?,?,?,?,?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -139,15 +139,11 @@ public class ClientesDAOImpl extends JdbcDaoSupport implements ClientesDAO {
 
                 ps.setString(1, cliente.getNombre());
                 ps.setString(2, cliente.getApellidos());
-                ps.setString(3, cliente.getEmail());
-                ps.setString(4, cliente.getDireccion());
+                ps.setString(3, cliente.getDireccion());
+                ps.setString(4, cliente.getEmail());
                 ps.setString(5, cliente.getDni());
                 ps.setBoolean(6, cliente.getVip());
                 ps.setString(7, cliente.getTelefono());
-
-                // InputStream is = new ByteArrayInputStream(cliente.getImagen());
-
-                // ps.setBlob(4, is);
 
                 return ps;
             }
