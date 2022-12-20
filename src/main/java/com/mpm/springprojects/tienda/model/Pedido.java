@@ -1,16 +1,17 @@
 package com.mpm.springprojects.tienda.model;
 
+import java.sql.Date;
 import java.util.List;
 
 public class Pedido {
     private int codigo;
     private Cliente cliente;
     private List<Producto> productos;
-    private String fecha;
+    private Date fecha;
     private double importeTotal;
 
     
-    public Pedido(int codigo, Cliente cliente, List<Producto> productos, String fecha, double importeTotal) {
+    public Pedido(int codigo, Cliente cliente, List<Producto> productos, Date fecha, double importeTotal) {
         this.codigo = codigo;
         this.cliente = cliente;
         this.productos = productos;
@@ -36,10 +37,10 @@ public class Pedido {
     public void setProductos(List<Producto> productos) {
         this.productos = productos;
     }
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
     }
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
     public double getImporteTotal() {
@@ -54,7 +55,7 @@ public class Pedido {
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
-    
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -75,4 +76,5 @@ public class Pedido {
             return false;
         return true;
     }
+
 }
