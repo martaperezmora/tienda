@@ -2,16 +2,19 @@ package com.mpm.springprojects.tienda.model;
 
 public class DetallePedido {
     private int codigo;
-    private Producto producto;
     private int cantidad;
-    private double subtotal;
+    private double precio;
+    private double total;
+    private int codigoProducto;
+    private int codigoPedido;
 
-    
-    public DetallePedido(int codigo, Producto producto, int cantidad, double subtotal) {
+    public DetallePedido(int codigo, int cantidad, double precio, double total, int codigoProducto, int codigoPedido) {
         this.codigo = codigo;
-        this.producto = producto;
         this.cantidad = cantidad;
-        this.subtotal = subtotal;
+        this.precio = precio;
+        this.total = total;
+        this.codigoProducto = codigoProducto;
+        this.codigoPedido = codigoPedido;
     }
     public DetallePedido(int codigo) {
         this.codigo = codigo;
@@ -19,18 +22,11 @@ public class DetallePedido {
     public DetallePedido() {
     }
 
-
     public int getCodigo() {
         return codigo;
     }
     public void setCodigo(int codigo) {
         this.codigo = codigo;
-    }
-    public Producto getProducto() {
-        return producto;
-    }
-    public void setProducto(Producto producto) {
-        this.producto = producto;
     }
     public int getCantidad() {
         return cantidad;
@@ -38,13 +34,30 @@ public class DetallePedido {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
-    public double getSubtotal() {
-        return subtotal;
+    public double getPrecio() {
+        return precio;
     }
-    public void setSubtotal(double subtotal) {
-        this.subtotal = subtotal;
+    public void setPrecio(double precio) {
+        this.precio = precio;
     }
-
+    public double getTotal() {
+        return total;
+    }
+    public void setTotal(double total) {
+        this.total = total;
+    }
+    public int getCodigoProducto() {
+        return codigoProducto;
+    }
+    public void setCodigoProducto(int codigoProducto) {
+        this.codigoProducto = codigoProducto;
+    }
+    public int getCodigoPedido() {
+        return codigoPedido;
+    }
+    public void setCodigoPedido(int codigoPedido) {
+        this.codigoPedido = codigoPedido;
+    }
 
     @Override
     public int hashCode() {
@@ -66,5 +79,5 @@ public class DetallePedido {
             return false;
         return true;
     }
-    
+
 }

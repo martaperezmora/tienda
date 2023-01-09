@@ -1,41 +1,42 @@
 package com.mpm.springprojects.tienda.model;
 
 import java.sql.Date;
-import java.util.List;
 
 public class Pedido {
     private int codigo;
-    private Cliente cliente;
-    private List<Producto> productos;
+    private int codigoCliente;
+    private double total;
     private Date fecha;
-    private double importeTotal;
 
-    
-    public Pedido(int codigo, Cliente cliente, List<Producto> productos, Date fecha, double importeTotal) {
+    public Pedido(int codigo, int codigoCliente, double total, Date fecha) {
         this.codigo = codigo;
-        this.cliente = cliente;
-        this.productos = productos;
+        this.codigoCliente = codigoCliente;
+        this.total = total;
         this.fecha = fecha;
-        this.importeTotal = importeTotal;
     }
     public Pedido(int codigo) {
         this.codigo = codigo;
     }
     public Pedido() {
     }
-
-
-    public Cliente getCliente() {
-        return cliente;
+    
+    public int getCodigo() {
+        return codigo;
     }
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
-    public List<Producto> getProductos() {
-        return productos;
+    public int getCodigoCliente() {
+        return codigoCliente;
     }
-    public void setProductos(List<Producto> productos) {
-        this.productos = productos;
+    public void setCodigoCliente(int codigoCliente) {
+        this.codigoCliente = codigoCliente;
+    }
+    public double getTotal() {
+        return total;
+    }
+    public void setTotal(double total) {
+        this.total = total;
     }
     public Date getFecha() {
         return fecha;
@@ -43,19 +44,7 @@ public class Pedido {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-    public double getImporteTotal() {
-        return importeTotal;
-    }
-    public void setImporteTotal(double importeTotal) {
-        this.importeTotal = importeTotal;
-    }
-    public int getCodigo() {
-        return codigo;
-    }
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
+    
     @Override
     public int hashCode() {
         final int prime = 31;
