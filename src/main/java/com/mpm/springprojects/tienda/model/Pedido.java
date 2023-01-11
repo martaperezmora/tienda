@@ -1,23 +1,19 @@
 package com.mpm.springprojects.tienda.model;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Pedido {
     private int codigo;
-    private int codigoCliente;
+    private Cliente cliente;
+    private List<DetallePedido> detallePedidos;
     private double total;
     private Date fecha;
 
-    public Pedido(int codigo, int codigoCliente, double total, Date fecha) {
-        this.codigo = codigo;
-        this.codigoCliente = codigoCliente;
-        this.total = total;
-        this.fecha = fecha;
-    }
-    public Pedido(int codigo) {
-        this.codigo = codigo;
-    }
     public Pedido() {
+        this.cliente = new Cliente();
+        this.detallePedidos = new ArrayList<DetallePedido>();
     }
     
     public int getCodigo() {
@@ -26,11 +22,17 @@ public class Pedido {
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
-    public int getCodigoCliente() {
-        return codigoCliente;
+    public Cliente getCliente() {
+        return cliente;
     }
-    public void setCodigoCliente(int codigoCliente) {
-        this.codigoCliente = codigoCliente;
+    public void setCliente(Cliente cliente) {
+        cliente = cliente;
+    }
+    public List<DetallePedido> getDetallePedidos() {
+        return detallePedidos;
+    }
+    public void setDetallePedidos(List<DetallePedido> detallePedidos) {
+        this.detallePedidos = detallePedidos;
     }
     public double getTotal() {
         return total;
@@ -44,7 +46,6 @@ public class Pedido {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-    
     @Override
     public int hashCode() {
         final int prime = 31;
