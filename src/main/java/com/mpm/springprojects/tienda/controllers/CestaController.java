@@ -17,6 +17,7 @@ import com.mpm.springprojects.tienda.model.DetallePedido;
 import com.mpm.springprojects.tienda.model.Pedido;
 import com.mpm.springprojects.tienda.services.ClientesService;
 
+// cesta de la compra
 @Controller
 @RequestMapping("/cesta")
 public class CestaController {
@@ -52,7 +53,7 @@ public class CestaController {
         session.setAttribute("pedido", null);  // para ello se establece el valor del pedido que habia en sesion a null
                                                // esto elimina todos los datos que tenia el objeto pedido
 
-        modelAndView.setViewName("redirect:edit");  // seguimos en la pantalla de la cesta
+        modelAndView.setViewName("redirect:editar");  // seguimos en la pantalla de la cesta
         return modelAndView;    
     }
 
@@ -75,7 +76,7 @@ public class CestaController {
             }
 
             ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName("redirect:/cesta/edit");   // otra vez seguimos en la pantalla de la cesta
+            modelAndView.setViewName("redirect:/cesta/editar");   // otra vez seguimos en la pantalla de la cesta
             return modelAndView;
     }
 
