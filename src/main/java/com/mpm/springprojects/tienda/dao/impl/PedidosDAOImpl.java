@@ -50,7 +50,7 @@ public class PedidosDAOImpl extends JdbcDaoSupport implements PedidosDAO {
             public Pedido mapRow(ResultSet rs, int rowNum) throws SQLException {
                 Pedido pedido = new Pedido();
                 pedido.setCodigo(rs.getInt("codigo"));
-                pedido.setCodigoCliente(rs.getInt("codigo_cliente"));
+        
                 pedido.setTotal(rs.getDouble("total"));
                 pedido.setFecha(rs.getDate("fecha"));
 

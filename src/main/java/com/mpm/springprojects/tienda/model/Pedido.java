@@ -26,7 +26,7 @@ public class Pedido {
         return cliente;
     }
     public void setCliente(Cliente cliente) {
-        cliente = cliente;
+        this.cliente = cliente;
     }
     public List<DetallePedido> getDetallePedidos() {
         return detallePedidos;
@@ -46,6 +46,16 @@ public class Pedido {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
+
+    public double getTotalCesta() {
+        total = 0;
+        for (DetallePedido detalle : this.detallePedidos) {
+            total += detalle.getCantidad()*detalle.getProducto().getPrecio();
+        }
+
+        return total;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
