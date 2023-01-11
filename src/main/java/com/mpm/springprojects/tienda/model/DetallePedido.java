@@ -3,25 +3,12 @@ package com.mpm.springprojects.tienda.model;
 public class DetallePedido {
     private int codigo;
     private int cantidad;
-    private double precio;
-    private double total;
-    private int codigoProducto;
-    private int codigoPedido;
+    private float total;
+    private Producto producto;
 
-    public DetallePedido(int codigo, int cantidad, double precio, double total, int codigoProducto, int codigoPedido) {
-        this.codigo = codigo;
-        this.cantidad = cantidad;
-        this.precio = precio;
-        this.total = total;
-        this.codigoProducto = codigoProducto;
-        this.codigoPedido = codigoPedido;
-    }
-    public DetallePedido(int codigo) {
-        this.codigo = codigo;
-    }
     public DetallePedido() {
     }
-
+    
     public int getCodigo() {
         return codigo;
     }
@@ -34,31 +21,18 @@ public class DetallePedido {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
-    public double getPrecio() {
-        return precio;
-    }
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
-    public double getTotal() {
+    public float getTotal() {
         return total;
     }
-    public void setTotal(double total) {
+    public void setTotal(float total) {
         this.total = total;
     }
-    public int getCodigoProducto() {
-        return codigoProducto;
+    public Producto getProducto() {
+        return producto;
     }
-    public void setCodigoProducto(int codigoProducto) {
-        this.codigoProducto = codigoProducto;
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
-    public int getCodigoPedido() {
-        return codigoPedido;
-    }
-    public void setCodigoPedido(int codigoPedido) {
-        this.codigoPedido = codigoPedido;
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -80,4 +54,5 @@ public class DetallePedido {
         return true;
     }
 
+   
 }
