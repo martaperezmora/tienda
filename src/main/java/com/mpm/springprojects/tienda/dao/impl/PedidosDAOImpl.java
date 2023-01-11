@@ -30,32 +30,92 @@ import org.springframework.stereotype.Repository;
 
 import com.mpm.springprojects.tienda.dao.PedidosDAO;
 import com.mpm.springprojects.tienda.model.Pedido;
-import com.mpm.springprojects.tienda.model.Producto;
 
 public class PedidosDAOImpl extends JdbcDaoSupport implements PedidosDAO {
 
     @Override
     public Page<Pedido> findAll(Pageable page) {
-        // TODO Auto-generated method stub
-        return null;
+        String queryCount = "select count(1) from pedidos";
+        Integer total = getJdbcTemplate().queryForObject(queryCount, Integer.class);
+
+        Order order = !page.getSort().isEmpty() ? page.getSort().toList().get(0) : Order.by("codigo");
+
+        String query = "SELECT * FROM pedidos ORDER BY " + order.getProperty() + " "
+                + order.getDirection().name() + " LIMIT " + page.getPageSize() + " OFFSET " + page.getOffset();
+
+        final List<Pedido> pedidos = getJdbcTemplate().query(query, new RowMapper<Pedido>() {
+
+            @Override
+            @Nullable
+            public Pedido mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Pedido pedido = new Pedido();
+                pedido.setCodigo(rs.getInt("codigo"));
+                pedido.setCodigoCliente(rs.getInt("codigo_cliente"));
+                pedido.setTotal(rs.getDouble("total"));
+                pedido.setFecha(rs.getDate("fecha"));
+
+                return pedido;
+            }
+
+        });
+
+        return new PageImpl<Pedido>(pedidos, page, total);
     }
 
     @Override
     public Pedido findById(int codigo) {
-        // TODO Auto-generated method stub
-        return null;
+        String query = "select * from pedidos where codigo = ?";
+        Object params[] = { codigo };
+        int types[] = { Types.INTEGER };
+        Pedido pedido = (Pedido) getJdbcTemplate().queryForObject(query, params, types,
+                new BeanPropertyRowMapper(Pedido.class));
+        return pedido;
     }
 
     @Override
-    public void insert(Pedido Pedido) {
-        // TODO Auto-generated method stub
-        
+    public void insert(Pedido pedido) {
+        String query = "insert into pedidos (codigo_cliente,total,fecha) values (?,?,?)";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        getJdbcTemplate().update(new PreparedStatementCreator() {
+
+            @Override
+            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                PreparedStatement ps = getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+                ps.setInt(1, pedido.getCodigoCliente());
+                ps.setDouble(2, pedido.getTotal());
+                ps.setDate(3, pedido.getFecha());
+
+                return ps;
+            }
+        }, keyHolder);
+
+        pedido.setCodigo(keyHolder.getKey().intValue());
+
     }
 
     @Override
-    public void update(Pedido Pedido) {
-        // TODO Auto-generated method stub
-        
+    public void update(Pedido pedido) {
+        String query = "update pedidos set codigo_cliente = ?, total = ?, fecha = ? where codigo = ?";
+
+        Object[] params = {
+                pedido.getCodigo(),
+                pedido.getCodigoCliente(),
+                pedido.getTotal(),
+                pedido.getFecha(),
+        };
+
+        int[] types = {
+                Types.INTEGER,
+                Types.INTEGER,
+                Types.DOUBLE,
+                Types.DATE
+        };
+
+        int update = getJdbcTemplate().update(query, params, types);
+
     }
 
     @Override
@@ -66,7 +126,7 @@ public class PedidosDAOImpl extends JdbcDaoSupport implements PedidosDAO {
         int types[] = { Types.INTEGER };
 
         int update = getJdbcTemplate().update(query, params, types);
-        
+
     }
-    
+
 }
