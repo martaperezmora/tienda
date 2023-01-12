@@ -30,12 +30,27 @@
           </div>
         </div>
 
-      <div class="mb-3">
-        <label for="imagenForm" class="form-label">Imagen</label>
-        <input class="form-control" type="file" name="imagenForm" id="imagenForm" th:value="${producto.imagen}">
+        
+        <div class="mb-3" th:if="${!cesta}">
+          <label for="formFile" class="form-label">Imagen</label>
+          <input class="form-control" type="file" id="imageForm" name="imageForm">
+        </div>
       </div>
 
-      <div class="col-12">
+      <!--boton cantidad para añadir en cesta-->
+      <div class="row" th:if="${cesta}">
+        <div class="col-sm-4">
+          <label for="quantity">Cantidad:</label>
+          <input type="number" id="quantity" name="quantity" min="1" max="500" value="1">
+        </div>
+        <div class="col-sm-1">
+          <a class="btn btn-primary" th:href="@{/productos/añadirCcesta/{codigo}/{cantidad}(codigo=${producto.codigo},cantidad=2)}" role="button">añadir a la cesta</a>
+        </div>
+      </div> 
+      <!-- fin boton añadir cantidad cesta-->
+
+      <!-- boton editar -->
+      <div class="col-12" th:if="${!cesta}">
         <button type="submit" class="btn btn-primary" th:text="#{producto.editar}">editar</button>
       </div>
 

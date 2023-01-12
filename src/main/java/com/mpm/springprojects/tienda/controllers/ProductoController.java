@@ -1,7 +1,10 @@
 package com.mpm.springprojects.tienda.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mpm.springprojects.tienda.model.DetallePedido;
+import com.mpm.springprojects.tienda.model.Pedido;
 import com.mpm.springprojects.tienda.model.Producto;
 import com.mpm.springprojects.tienda.services.ProductosService;
 
@@ -104,16 +109,19 @@ public class ProductoController {
         return modelAndView;
     }
 
-    @GetMapping(path = { "/edit/{codigo}" })
-    public ModelAndView editar(@PathVariable(name = "codigo", required = true) int codigo) {
-        ModelAndView modelAndView = new ModelAndView();
-        Producto producto = productosService.findById(codigo);
-        modelAndView.addObject("producto", producto);
-        modelAndView.setViewName("productos/edit");
+    @GetMapping(path = { "/edit/{codigo}/{cesta}" })
+    public ModelAndView editar(
+        @PathVariable(name = "codigo", required = true) int codigo, @PathVariable(name = "cesta", required = false) boolean cesta) {
 
-        return modelAndView;
+    Producto producto = productosService.findById(codigo);
 
-    }
+    ModelAndView modelAndView = new ModelAndView();
+    modelAndView.addObject("producto", producto);
+    modelAndView.addObject("cesta", cesta);
+
+    modelAndView.setViewName("productos/edit");
+    return modelAndView;
+}
 
     @PostMapping(path = { "/modificar" })
     public ModelAndView modificar(Producto producto, @RequestParam("imagenForm") MultipartFile multipartFile)
@@ -140,6 +148,36 @@ public class ProductoController {
         modelAndView.setViewName("redirect:/productos/list");
 
         return modelAndView;
+    }
+
+    @GetMapping(value = "/añadirCesta/{codigo}/{cantidad}")
+    public ModelAndView añadirCesta(
+        @PathVariable(name = "codigo", required = true) int codigo, @PathVariable(name = "cantidad", required = true) int cantidad,HttpSession session) {
+
+            Producto producto = productosService.findById(codigo);
+
+            Pedido pedido = (Pedido) session.getAttribute("pedido");
+
+            if(pedido == null){
+                pedido = new Pedido();
+            }
+
+            if(pedido.getDetallePedidos() == null){
+                List<DetallePedido> detallePedidos = new ArrayList<DetallePedido>();
+                pedido.setDetallePedidos(detallePedidos);
+            }
+
+            DetallePedido detalle = new DetallePedido();
+            detalle.setProducto(producto);
+            detalle.setCantidad(cantidad);
+            detalle.setTotal(cantidad*producto.getPrecio());
+            pedido.getDetallePedidos().add(detalle);
+
+            session.setAttribute("pedido", pedido);
+
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("redirect:/cesta/editar");
+            return modelAndView;
     }
 
 

@@ -15,7 +15,7 @@
           <h5 class="mb-3" >Cesta</h5>
           <form class="needs-validation"  method="post"  novalidate>
             <div class="row g-4">
-              <div class="col-sm-6">
+              <div class="col-sm-6"> <!-- cabecera con los datos del cliente -->
                 <label class="form-label" th:text="|${cliente.nombre} ${cliente.apellidos} ${cliente.dni} ${cliente.email}|"></label>
                 <label class="form-label" th:text="|${cliente.direccion} ${cliente.apellidos} ${cliente.dni}|"></label>
                 <label class="form-check-label" for="vip"  th:text="#{cliente.vip}">Es cliente VIP</label>
@@ -24,9 +24,10 @@
         </div>
       </div>
 
+      <!-- lista de productos en la cesta -->
       <div class="row">
         <table class="table table-striped table-hover">
-          <caption>Clientes</caption>
+          <caption>Productos</caption>
           <thead>
             <tr>
               <th scope="col">Código</th>

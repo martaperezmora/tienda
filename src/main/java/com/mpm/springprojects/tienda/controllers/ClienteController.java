@@ -3,6 +3,8 @@ package com.mpm.springprojects.tienda.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mpm.springprojects.tienda.model.Cliente;
+import com.mpm.springprojects.tienda.model.Pedido;
 import com.mpm.springprojects.tienda.services.ClientesService;
 
 @Controller
@@ -145,6 +148,27 @@ public class ClienteController {
         modelAndView.setViewName("redirect:/clientes/list");
         
         return modelAndView;
+    }
+
+    @GetMapping(value = "/añadirCesta/{codigo}")
+    public ModelAndView addCliente(
+        @PathVariable(name = "codigo", required = true) int codigo, HttpSession session) {
+
+            Cliente cliente = clientesService.findById(codigo);
+
+            Pedido pedido = (Pedido) session.getAttribute("pedido");
+
+            if(pedido == null){
+                pedido = new Pedido();
+            }
+
+            pedido.setCliente(cliente);
+
+            session.setAttribute("pedido", pedido);
+
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("redirect:/cesta/editar");
+            return modelAndView;
     }
 
     private List<Cliente> addCliente(Cliente cliente){
