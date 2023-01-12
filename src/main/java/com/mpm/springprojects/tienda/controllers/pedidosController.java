@@ -24,6 +24,7 @@ import com.mpm.springprojects.tienda.model.Cliente;
 import com.mpm.springprojects.tienda.model.DetallePedido;
 import com.mpm.springprojects.tienda.model.Pedido;
 import com.mpm.springprojects.tienda.services.ClientesService;
+import com.mpm.springprojects.tienda.services.PedidosService;
 
 // lista historial de pedidos
 @Controller
@@ -74,10 +75,10 @@ public class pedidosController {
 
 
     @GetMapping(path = { "/editar/{codigo}" })  // para editar la informacion de un pedido
-    public ModelAndView edit(
+    public ModelAndView editar(
             @PathVariable(name = "codigo", required = true) int codigo, final Locale locale) {
 
-        Pedido pedido = pedidosService.find(codigo);   // se extrae el pedido de la base de datos
+        Pedido pedido = pedidosService.findById(codigo);   // se extrae el pedido de la base de datos
                                                        // usando el codigo recibido
 
         ModelAndView modelAndView = new ModelAndView();
@@ -89,12 +90,12 @@ public class pedidosController {
     }
 
     @GetMapping(path = { "/guardar" })   // para guardar los cambios realizados en el pedido despues de editar
-    public ModelAndView save(HttpSession session)
+    public ModelAndView guardar(HttpSession session)
             throws IOException {
 
         Pedido pedido = (Pedido) session.getAttribute("pedido");  // se extrae el pedido de la sesion
 
-        pedidosService.save(pedido);   // se guarda en la base de datos con el metodo correspondiente (ver PedidosDAOImpl.java)
+        pedidosService.insert(pedido);   // se guarda en la base de datos con el metodo correspondiente (ver PedidosDAOImpl.java)
 
         session.removeAttribute("pedido");  // se elimina el pedido editado de la sesion; ya no hace falta
 

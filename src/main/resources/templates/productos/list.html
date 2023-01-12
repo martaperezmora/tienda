@@ -18,14 +18,15 @@
             <h5 th:text="${producto.nombre}" class="card-title"></h5>
             <p th:text="${producto.descripcion}" class="card-text"></p>
             <p th:text="${producto.precio}" class="card-text"></p>
-            <a href="producto.html" th:href="@{/productos/edit/}+${producto.codigo}" class="btn btn-primary">editar</a>
+            <a class="btn btn-primary" th:href="@{/productos/edit/{codigo}/true(codigo=${producto.codigo})}" href="#" role="button">comprar</i></a>
+            <!--<a href="producto.html" th:href="@{/productos/edit/}+${producto.codigo}" class="btn btn-primary">editar</a>-->
+            <a href="producto.html" th:href="@{/productos/edit/{codigo}/false(codigo=${producto.codigo})}" class="btn btn-primary">editar</a>
             <a href="producto.html" th:href="@{/productos/borrar/}+${producto.codigo}" class="btn btn-danger">borrar</a>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- nav -->
     <div class="row">
       <div th:replace="commons/pagination :: pagination">
     </div>
