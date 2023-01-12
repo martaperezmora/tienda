@@ -6,8 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
@@ -22,11 +23,13 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Repository;
 
 import com.mpm.springprojects.tienda.dao.PedidosDAO;
 import com.mpm.springprojects.tienda.model.Cliente;
 import com.mpm.springprojects.tienda.model.Pedido;
 
+@Repository
 public class PedidosDAOImpl extends JdbcDaoSupport implements PedidosDAO {
 
     @Autowired
