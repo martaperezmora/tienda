@@ -44,7 +44,7 @@
           <input type="number" id="quantity" name="quantity" min="1" max="500" value="1">
         </div>
         <div class="col-sm-1">
-          <a class="btn btn-primary" th:href="@{/productos/añadirCcesta/{codigo}/{cantidad}(codigo=${producto.codigo},cantidad=2)}" role="button">añadir a la cesta</a>
+          <a class="btn btn-primary" th:href="@{/productos/añadirCesta/{codigo}/{cantidad}(codigo=${producto.codigo},cantidad=2)}" role="button">añadir a la cesta</a>
         </div>
       </div> 
       <!-- fin boton añadir cantidad cesta-->

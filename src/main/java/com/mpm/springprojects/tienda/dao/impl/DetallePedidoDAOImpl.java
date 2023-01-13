@@ -33,7 +33,7 @@ public class DetallePedidoDAOImpl extends JdbcDaoSupport implements DetallePedid
 
     @Override
     public void insert(Pedido pedido, DetallePedido detallePedido) {
-        String query = "insert into Detalle_Pedido (cantidad," + 
+        String query = "insert into detalle_pedido (cantidad," + 
                                             " precio," + 
                                             " total," + 
                                             " codigo_pedido," + 

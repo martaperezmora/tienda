@@ -47,7 +47,7 @@ public class PedidosDAOImpl extends JdbcDaoSupport implements PedidosDAO {
 
         Order order = !page.getSort().isEmpty() ? page.getSort().toList().get(0) : Order.by("codigo");
 
-        String query = "SELECT p.*, c.nombre FROM Pedidos p, Clientes c where p.codigo_cliente = c.codigo ORDER BY "
+        String query = "SELECT p.*, c.nombre FROM pedidos p, Clientes c where p.codigo_cliente = c.codigo ORDER BY "
                 + order.getProperty() + " "
                 + order.getDirection().name() + " LIMIT " + page.getPageSize() + " OFFSET " + page.getOffset();
 
@@ -72,7 +72,7 @@ public class PedidosDAOImpl extends JdbcDaoSupport implements PedidosDAO {
 
     @Override
     public Pedido findById(int codigo) {
-        String query = "select p.*, c.nombre from Pedidos p where p.codigo = ?";
+        String query = "select p.*, c.nombre from pedidos p, Clientes c where p.codigo = ?";
         Object params[] = { codigo };
         int types[] = { Types.INTEGER };
         Pedido pedido = (Pedido) getJdbcTemplate().queryForObject(query, params, types, new RowMapper<Pedido>() {

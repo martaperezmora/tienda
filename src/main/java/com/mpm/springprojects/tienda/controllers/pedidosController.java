@@ -58,7 +58,7 @@ public class pedidosController {
 
         List<Pedido> pedidos = page.getContent();
 
-        ModelAndView modelAndView = new ModelAndView("pedidos/list");
+        ModelAndView modelAndView = new ModelAndView("pedidos/lista");
         modelAndView.addObject("pedidos", pedidos);
 
 

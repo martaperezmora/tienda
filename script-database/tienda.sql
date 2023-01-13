@@ -55,8 +55,44 @@ CREATE TABLE `Productos` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping events for database 'tienda_online'
+-- Table structure for table `detalle_pedido`
 --
+
+DROP TABLE IF EXISTS `detalle_pedido`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `detalle_pedido` (
+  `codigo` int NOT NULL AUTO_INCREMENT,
+  `cantidad` int NOT NULL,
+  `precio` double NOT NULL,
+  `total` double NOT NULL,
+  `codigo_producto` int NOT NULL,
+  `codigo_pedido` int NOT NULL,
+  PRIMARY KEY (`codigo`),
+  KEY `codigo_producto` (`codigo_producto`),
+  KEY `codigo_pedido` (`codigo_pedido`),
+  CONSTRAINT `codigo_pedido` FOREIGN KEY (`codigo_pedido`) REFERENCES `pedidos` (`codigo`),
+  CONSTRAINT `codigo_producto` FOREIGN KEY (`codigo_producto`) REFERENCES `Productos` (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `pedidos`
+--
+
+DROP TABLE IF EXISTS `pedidos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `pedidos` (
+  `codigo` int NOT NULL AUTO_INCREMENT,
+  `codigo_cliente` int NOT NULL,
+  `total` double NOT NULL,
+  `fecha` date NOT NULL,
+  PRIMARY KEY (`codigo`),
+  KEY `codigo_cliente` (`codigo_cliente`),
+  CONSTRAINT `codigo_cliente` FOREIGN KEY (`codigo_cliente`) REFERENCES `Clientes` (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping routines for database 'tienda_online'
@@ -166,4 +202,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-01 11:06:41
+-- Dump completed on 2023-01-13 12:53:42
