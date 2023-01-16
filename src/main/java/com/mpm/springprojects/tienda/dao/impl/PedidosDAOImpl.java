@@ -144,12 +144,14 @@ public class PedidosDAOImpl extends JdbcDaoSupport implements PedidosDAO {
     @Override
     public void delete(int codigo) {
         String query = "delete from pedidos where codigo = ?";
+        String queryDetalle = "delete from detalle_pedido where codigo_pedido = ?";
 
         Object params[] = { codigo };
         int types[] = { Types.INTEGER };
 
+        
+        int updateDetalle = getJdbcTemplate().update(queryDetalle, params, types);
         int update = getJdbcTemplate().update(query, params, types);
-
     }
 
 }

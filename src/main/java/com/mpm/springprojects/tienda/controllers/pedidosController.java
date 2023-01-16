@@ -104,4 +104,16 @@ public class pedidosController {
 
         return modelAndView;
     }
+
+    @GetMapping(path = { "/borrar/{codigo}" })  // para borar un pedido
+    public ModelAndView borrar(
+            @PathVariable(name = "codigo", required = true) int codigo, final Locale locale) {
+
+            pedidosService.delete(codigo);
+
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("redirect:lista");  // volvemos al listado de pedidos
+
+            return modelAndView;
+        }
 }

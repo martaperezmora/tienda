@@ -32,6 +32,7 @@
             <td th:text="${pedido.total}"></td>
             <td>
               <a class="btn btn-primary" th:href="@{/pedidos/editar/}+${pedido.codigo}" role="button">editar</i></a>
+              <a class="btn btn-primary" th:href="@{/pedidos/borrar/}+${pedido.codigo}" role="button">borrar</i></a>
             </td>
           </tr>
         </tbody>
