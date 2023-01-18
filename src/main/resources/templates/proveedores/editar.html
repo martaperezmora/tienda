@@ -8,10 +8,6 @@
     
     <!-- formulario -->
     <form class="row g-3" th:action="@{/proveedores/modificar}" method="post">
-        <div class="col-md-1">
-            <label for="inputCodigo" class="form-label" th:text="#{proveedor.codigo}">Código</label>
-            <input type="number" class="form-control" id="codigo" name="codigo" min="0" th:value="${proveedor.codigo}">
-          </div>
 
         <div class="col-md-3">
           <label for="inputNombre" class="form-label" th:text="#{proveedor.nombre}">Nombre</label>
