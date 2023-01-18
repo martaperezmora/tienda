@@ -1,7 +1,8 @@
 package com.mpm.springprojects.tienda.services;
 
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.mpm.springprojects.tienda.model.Proveedor;
 
