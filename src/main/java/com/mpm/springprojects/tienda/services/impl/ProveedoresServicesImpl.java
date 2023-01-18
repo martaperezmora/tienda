@@ -5,11 +5,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import com.mpm.springprojects.tienda.model.Proveedor;
 import com.mpm.springprojects.tienda.repository.ProveedorRepository;
 import com.mpm.springprojects.tienda.services.ProveedoresService;
 
+@Service
 public class ProveedoresServicesImpl implements ProveedoresService {
 
     @Autowired
