@@ -9,6 +9,8 @@
     <!-- formulario -->
     <form class="row g-3" th:action="@{/proveedores/modificar}" method="post">
 
+        <input type="hidden" class="form-control" id="codigo" name="codigo" th:value="${proveedor.codigo}">
+
         <div class="col-md-3">
           <label for="inputNombre" class="form-label" th:text="#{proveedor.nombre}">Nombre</label>
           <input type="text" class="form-control" id="nombre" name="nombre" th:value="${proveedor.nombre}" autofocus>
