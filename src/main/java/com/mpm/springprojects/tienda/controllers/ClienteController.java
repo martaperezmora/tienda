@@ -171,6 +171,7 @@ public class ClienteController {
             return modelAndView;
     }
 
+    /*
     private List<Cliente> addCliente(Cliente cliente){
         List<Cliente> clientes = getClientes();
         clientes.add(cliente);
@@ -191,5 +192,6 @@ public class ClienteController {
 
         return Clientes;
     }
+    */
 
 }
