@@ -1,8 +1,16 @@
 package com.mpm.springprojects.tienda.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import com.mpm.springprojects.tienda.Utils.ImageUtil;
 
+@Entity
 public class Producto {
+
+    @Id
+    @GeneratedValue
     private int codigo;
     private String nombre;
     private String descripcion;
