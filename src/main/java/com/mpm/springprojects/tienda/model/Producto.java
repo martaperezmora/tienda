@@ -1,8 +1,10 @@
 package com.mpm.springprojects.tienda.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 import com.mpm.springprojects.tienda.Utils.ImageUtil;
 
@@ -15,6 +17,8 @@ public class Producto {
     private String nombre;
     private String descripcion;
     private float precio;
+    @Lob
+    @Column(length=10000)
     private byte[] imagen;
     
 

@@ -4,9 +4,23 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+import org.springframework.data.annotation.Transient;
+
+//7@Entity
 public class Pedido {
+
+    //@Id
+    //@GeneratedValue
     private int codigo;
+
     private Cliente cliente;
+    //@Transient
     private List<DetallePedido> detallePedidos;
     private double total;
     private Date fecha;

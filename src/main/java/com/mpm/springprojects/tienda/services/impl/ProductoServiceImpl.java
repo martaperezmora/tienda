@@ -39,13 +39,14 @@ public class ProductoServiceImpl implements ProductosService {
 
     @Override
     public void update(Producto producto) {
-        productoRepository.save(producto);
 
-        /*
-        if (producto.getImagen() != null && producto.getImagen().length > 0) {
-            productoRepository.updateImage(producto);
+        if(producto.getImagen() == null){
+            Producto productoBd = findById(producto.getCodigo());
+            if(productoBd.getImagen() != null){
+                producto.setImagen(productoBd.getImagen());
+            }
         }
-        */
+        productoRepository.save(producto);
     }
 
     @Override
