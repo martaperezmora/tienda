@@ -15,15 +15,15 @@ import com.mpm.springprojects.tienda.model.Cliente;
 import com.mpm.springprojects.tienda.model.DetallePedido;
 import com.mpm.springprojects.tienda.model.Pedido;
 import com.mpm.springprojects.tienda.repository.ClienteRepository;
-//import com.mpm.springprojects.tienda.repository.PedidoRepository;
+import com.mpm.springprojects.tienda.repository.PedidoRepository;
 import com.mpm.springprojects.tienda.services.PedidosService;
-/*
+
 @Service
 public class PedidosServiceImpl implements PedidosService{
 
     @Autowired
     PedidoRepository pedidoRepository;
-
+ 
     @Autowired
     DetallePedidoDAO detallePedidoDAO;
 
@@ -35,9 +35,10 @@ public class PedidosServiceImpl implements PedidosService{
         return pedidoRepository.findAll(pageable);
     }
 
+    /* 
     @Override
     public Pedido findById(int codigo) {
-        Optional<Pedido> findById = pedidoRepository.findById(codigo);
+        Optional<Pedido> pedido = pedidoRepository.findById(codigo);
 
         Cliente cliente = clienteRepository.findById(pedido.getCliente().getCodigo());
 
@@ -47,18 +48,26 @@ public class PedidosServiceImpl implements PedidosService{
         pedido.setDetallePedidos(detalle);
         
         return pedido;
+    }*/
+    @Override
+    public Pedido findById(int codigo) {
+        Optional<Pedido> findById = pedidoRepository.findById(codigo);
+        if(findById != null){
+            return findById.get();
+        }
+        return null;
     }
 
     @Override
     public void insert(Pedido pedido) {
         
         pedidoRepository.save(pedido);
-
+        /* 
         List<DetallePedido> detallePedidos = pedido.getDetallePedidos();
         for (DetallePedido detallePedido : detallePedidos) {
             detallePedidoDAO.insert(pedido, detallePedido);
         }
-
+        */
     }
 
     @Override
@@ -70,7 +79,7 @@ public class PedidosServiceImpl implements PedidosService{
     public void delete(int codigo) {
         pedidoRepository.deleteById(codigo);        
     }
-}*/
+}
 
 
  /* 
