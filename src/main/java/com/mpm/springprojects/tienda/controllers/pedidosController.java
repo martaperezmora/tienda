@@ -36,23 +36,21 @@ public class pedidosController {
     @Value("${pagination.size}")
     int sizePage;
 
-
-    @GetMapping(value = "/lista")  // lista los pedidos con la paginacion
-    public ModelAndView list(Model model){
+    @GetMapping(value = "/lista") // lista los pedidos con la paginacion
+    public ModelAndView list(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:lista/1/codigo/desc");
         return modelAndView;
     }
-  
+
     @GetMapping(value = "/lista/{numPage}/{fieldSort}/{directionSort}")
     public ModelAndView listPage(Model model,
             @PathVariable("numPage") Integer numPage,
             @PathVariable("fieldSort") String fieldSort,
             @PathVariable("directionSort") String directionSort) {
 
-
         Pageable pageable = PageRequest.of(numPage - 1, sizePage,
-            directionSort.equals("asc") ? Sort.by(fieldSort).ascending() : Sort.by(fieldSort).descending());
+                directionSort.equals("asc") ? Sort.by(fieldSort).ascending() : Sort.by(fieldSort).descending());
 
         Page<Pedido> page = pedidosService.findAll(pageable);
 
@@ -61,59 +59,58 @@ public class pedidosController {
         ModelAndView modelAndView = new ModelAndView("pedidos/lista");
         modelAndView.addObject("pedidos", pedidos);
 
+        modelAndView.addObject("numPage", numPage);
+        modelAndView.addObject("totalPages", page.getTotalPages());
+        modelAndView.addObject("totalElements", page.getTotalElements());
 
-		modelAndView.addObject("numPage", numPage);
-		modelAndView.addObject("totalPages", page.getTotalPages());
-		modelAndView.addObject("totalElements", page.getTotalElements());
-
-		modelAndView.addObject("fieldSort", fieldSort);
-		modelAndView.addObject("directionSort", directionSort.equals("asc") ? "asc" : "desc");
+        modelAndView.addObject("fieldSort", fieldSort);
+        modelAndView.addObject("directionSort", directionSort.equals("asc") ? "asc" : "desc");
 
         return modelAndView;
     }
     // fin de la lista con paginacion
 
-
-    @GetMapping(path = { "/editar/{codigo}" })  // para editar la informacion de un pedido
+    @GetMapping(path = { "/editar/{codigo}" }) // para editar la informacion de un pedido
     public ModelAndView editar(
             @PathVariable(name = "codigo", required = true) int codigo, final Locale locale) {
 
-        Pedido pedido = pedidosService.findById(codigo);   // se extrae el pedido de la base de datos
-                                                       // usando el codigo recibido
+        Pedido pedido = pedidosService.findById(codigo); // se extrae el pedido de la base de datos
+        // usando el codigo recibido
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("pedido", pedido);
 
-        modelAndView.setViewName("pedidos/editar");  // se carga la pagina de edicion
-                                                               // con los datos del pedido
+        modelAndView.setViewName("pedidos/editar"); // se carga la pagina de edicion
+                                                    // con los datos del pedido
         return modelAndView;
     }
 
-    @GetMapping(path = { "/guardar" })   // para guardar los cambios realizados en el pedido despues de editar
+    @GetMapping(path = { "/guardar" }) // para guardar los cambios realizados en el pedido despues de editar
     public ModelAndView guardar(HttpSession session)
             throws IOException {
 
-        Pedido pedido = (Pedido) session.getAttribute("pedido");  // se extrae el pedido de la sesion
+        Pedido pedido = (Pedido) session.getAttribute("pedido"); // se extrae el pedido de la sesion
 
-        pedidosService.insert(pedido);   // se guarda en la base de datos con el metodo correspondiente (ver PedidosDAOImpl.java)
+        pedidosService.insert(pedido); // se guarda en la base de datos con el metodo correspondiente (ver
+                                       // PedidosDAOImpl.java)
 
-        session.removeAttribute("pedido");  // se elimina el pedido editado de la sesion; ya no hace falta
+        session.removeAttribute("pedido"); // se elimina el pedido editado de la sesion; ya no hace falta
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:lista");  // volvemos al listado de pedidos
+        modelAndView.setViewName("redirect:lista"); // volvemos al listado de pedidos
 
         return modelAndView;
     }
 
-    @GetMapping(path = { "/borrar/{codigo}" })  // para borar un pedido
+    @GetMapping(path = { "/borrar/{codigo}" }) // para borar un pedido
     public ModelAndView borrar(
             @PathVariable(name = "codigo", required = true) int codigo, final Locale locale) {
 
-            pedidosService.delete(codigo);
+        pedidosService.delete(codigo);
 
-            ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName("redirect:lista");  // volvemos al listado de pedidos
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:lista"); // volvemos al listado de pedidos
 
-            return modelAndView;
-        }
+        return modelAndView;
+    }
 }
