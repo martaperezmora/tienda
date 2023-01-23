@@ -11,7 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Transient;
 
-
 @Entity
 public class Pedido {
 
