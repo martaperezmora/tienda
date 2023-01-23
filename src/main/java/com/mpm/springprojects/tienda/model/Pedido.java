@@ -7,20 +7,20 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.Transient;
 
-import org.springframework.data.annotation.Transient;
 
-//7@Entity
+@Entity
 public class Pedido {
 
-    //@Id
-    //@GeneratedValue
+    @Id
+    @GeneratedValue
     private int codigo;
-
+    @ManyToOne
     private Cliente cliente;
-    //@Transient
+    @Transient
     private List<DetallePedido> detallePedidos;
     private double total;
     private Date fecha;
@@ -28,6 +28,12 @@ public class Pedido {
     public Pedido() {
         this.cliente = new Cliente();
         this.detallePedidos = new ArrayList<DetallePedido>();
+    }
+
+    // esto para el mapeo
+    @PrePersist
+    public void PrePersistFecha(){
+        this.fecha = new Date();
     }
     
     public int getCodigo() {

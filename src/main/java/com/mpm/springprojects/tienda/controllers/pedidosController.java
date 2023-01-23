@@ -1,4 +1,4 @@
-/*package com.mpm.springprojects.tienda.controllers;
+package com.mpm.springprojects.tienda.controllers;
 
 import java.io.IOException;
 import java.util.List;
@@ -116,4 +116,4 @@ public class pedidosController {
 
             return modelAndView;
         }
-}*/
+}
